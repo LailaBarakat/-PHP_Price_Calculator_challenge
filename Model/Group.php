@@ -3,15 +3,25 @@ declare(strict_types=1);
 
 class Group {
 
+    private int $id;
     private string $name;
     private int $fixedDiscount;
     private int $variableDiscount;
 
-    public function __construct(string $name, int $fixedDiscount, int $variableDiscount)
+    public function __construct(int $id,string $name, int $fixedDiscount, int $variableDiscount)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->fixedDiscount = $fixedDiscount;
         $this->variableDiscount = $variableDiscount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
