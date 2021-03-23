@@ -7,13 +7,15 @@ class Group {
     private string $name;
     private int $fixedDiscount;
     private int $variableDiscount;
+    Private int $parentID;
 
-    public function __construct(int $id,string $name, int $fixedDiscount, int $variableDiscount)
+    public function __construct(int $id,string $name, int $fixedDiscount, int $variableDiscount, int $parentID)
     {
         $this->id = $id;
         $this->name = $name;
         $this->fixedDiscount = $fixedDiscount;
         $this->variableDiscount = $variableDiscount;
+        $this->parentID = $parentID;
     }
 
     /**
@@ -46,5 +48,13 @@ class Group {
     public function getVariableDiscount(): int
     {
         return $this->variableDiscount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParentID(): int
+    {
+        return $this->parentID;
     }
 }
