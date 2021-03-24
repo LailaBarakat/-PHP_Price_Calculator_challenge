@@ -43,7 +43,7 @@ class CustomerLoader
 
             $stmt = $conn->query("SELECT id, firstname, lastname, fixedDiscount, variableDiscount, groupId FROM Customer WHERE id = $id");
             $result = $stmt->fetch();
-            $customer = new Customer(intval($result['id']), $result['firstname'], $result['lastname'], $result['fixedDiscount'], $row['variableDiscount'], $row['groupId']);
+            $customer = new Customer(intval($result['id']), $result['firstname'], $result['lastname'], $result['fixedDiscount'], $result['variableDiscount'], $result['groupId']);
 
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
