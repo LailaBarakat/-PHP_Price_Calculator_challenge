@@ -1,4 +1,13 @@
 <?php
+declare(strict_types=1);
+
+/*require_once 'Model/Customer.php';
+require_once 'Model/CustomerLoader.php';
+require_once 'Model/Group.php';
+require_once 'Model/GroupLoader.php';
+require_once 'Model/Product.php';
+require_once 'Model/ProductLoader.php';
+require_once 'Controller/Controller.php';*/
 
 ?>
 
@@ -16,33 +25,40 @@
 </head>
 <body>
 <h1>Welcome to everything</h1>
-<div class="container">
-    <div class="row justify-content-around" id="menu">
-        <div class="col-4">
-            <label for="customer"></label>
-            <button name="customer" id="customer" class="btn btn-secondary dropdown-toggle">
-                Select the customer
-            </button>
+<form method="get">
+    <div class="container">
+        <div class="row justify-content-around" id="menu">
+            <div class="col-4">
+                <label for="customer"></label>
+                <select name="customer" id="customer" class="btn btn-secondary dropdown-toggle">
+                    <option value><i>Select the customers</i></option>
+                    <?php foreach ($datas as $i => $data): ?>
+                        <option value="<?php echo $customer['name']; ?>" <?php echo $i = 0 ? 'selected' : 0; ?>><?php echo $customer['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="col-4">
+                <select name="product" id="product" class="btn btn-secondary dropdown-toggle">
+                    <option value><i>Select the products</i></option>
+                    <?php foreach ($datas as $i => $data): ?>
+                        <option value="<?php echo $product['name']; ?>" <?php echo $i = 0 ? 'selected' : 0; ?>><?php echo $product['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
 
-        <div class="col-4">
-            <button name="product" id="product" class="btn btn-secondary dropdown-toggle">
-                Select the product
-            </button>
+        <div class="row justify-content-center" id="calculate">
+            <div class="col-4">
+                <button type="submit" name="calculate" class="btn btn-primary">Check the price</button>
+            </div>
+        </div>
+        <div class="row justify-content-center" id="price">
+            <div class="col-4">
+                <span>Show the price here!!</span>
+            </div>
         </div>
     </div>
-
-    <div class="row justify-content-center" id="calculate">
-        <div class="col-4">
-            <button type="submit" name="calculate" class="btn btn-primary">Check the price</button>
-        </div>
-    </div>
-    <div class="row justify-content-center" id="price">
-        <div class="col-4">
-            <span>Show the price here!!</span>
-        </div>
-    </div>
-</div>
-
+</form>
 </body>
 </html>
