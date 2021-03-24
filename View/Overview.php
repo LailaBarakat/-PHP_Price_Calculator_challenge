@@ -1,16 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/*require_once 'Model/Customer.php';
-require_once 'Model/CustomerLoader.php';
-require_once 'Model/Group.php';
-require_once 'Model/GroupLoader.php';
-require_once 'Model/Product.php';
-require_once 'Model/ProductLoader.php';
-require_once 'Controller/Controller.php';*/
-
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,6 +30,7 @@ require_once 'Controller/Controller.php';*/
             </div>
 
             <div class="col-4">
+                <label for="product"></label>
                 <select name="product" id="product" class="btn btn-secondary dropdown-toggle">
                     <option value><i>Select the products</i></option>
                     <?php foreach ($datas as $i => $data): ?>
