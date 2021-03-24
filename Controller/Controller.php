@@ -10,6 +10,11 @@ include_once 'Model/ProductLoader.php';*/
 
 class Controller
 {
+    private Connection $db;
+
+    public function __construct () {
+        $this->db = new Connection ;
+    }
 
     public function render(array $GET, array $POST): void
     {
@@ -21,20 +26,19 @@ class Controller
         $groupLoader = new GroupLoader();
         $productLoader = new ProductLoader();
 
-
-
         //show all the customer in dropdown
         if (isset($GET['customer']))
         {
             $data = $customerLoader->getALLCustomers();
-            require 'View/Overview.php';
+            require '../View/Overview.php';
         }
 
+        //show all the products in dropdown
         if (isset($GET['product'])) {
             $data = $productLoader->getALLproducts() ;
-            require 'View/Overview.php';
+            require '../View/Overview.php';
         }
-        var_dump($data);
+
 
     }
 }
