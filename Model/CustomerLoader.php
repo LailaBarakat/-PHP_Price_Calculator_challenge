@@ -1,6 +1,6 @@
 <?php
 require_once 'Customer.php';
-require_once 'config.php';
+//require_once '../View/config.php';
 
 class CustomerLoader
 {
@@ -53,3 +53,4 @@ class CustomerLoader
     }
 
 }
+
