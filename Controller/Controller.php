@@ -10,11 +10,6 @@ include_once 'Model/ProductLoader.php';*/
 
 class Controller
 {
-    private Connection $db;
-
-    public function __construct () {
-        $this->db = new Connection ;
-    }
 
     public function render(array $GET, array $POST): void
     {
@@ -27,17 +22,27 @@ class Controller
         $productLoader = new ProductLoader();
 
         //show all the customer in dropdown
-        if (isset($GET['customer']))
-        {
-            $data = $customerLoader->getALLCustomers();
-            require '../View/Overview.php';
-        }
+       $customers = $customerLoader->getALLCustomers();
 
         //show all the products in dropdown
-        if (isset($GET['product'])) {
-            $data = $productLoader->getALLproducts() ;
-            require '../View/Overview.php';
+        $products = $productLoader->getALLproducts();
+
+        //Calculate
+        $totalPrice = 0;
+        if (isset($GET['customer']) && isset($GET['product'])){
+            $customer = $customerLoader->getCustomer(intval($GET['customer']));
+            $FixedDiscount = $customer->getFixedDiscount();
+            $VariableDiscount = $customer->getVariableDiscount() / 100;
+
+            $product = $productLoader->getproduct(intval($GET['product']));
+            $price = $product->getPrice();
+
+            $totalPrice = (($price - $FixedDiscount) * $VariableDiscount) / 100;
+
+
         }
+
+        require 'View/Overview.php';
 
 
     }
