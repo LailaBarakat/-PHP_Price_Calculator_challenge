@@ -43,12 +43,16 @@ class Customer {
         return $this->lastname;
     }
 
+    public function getFullName(): string{
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
     /**
      * @param int $fixedDiscount
      */
-    public function getFixedDiscount(int $fixedDiscount): void
+    public function getFixedDiscount(): int
     {
-        $this->fixedDiscount = $fixedDiscount;
+        return $this->fixedDiscount;
     }
 
     /**

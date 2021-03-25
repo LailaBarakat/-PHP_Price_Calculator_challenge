@@ -10,8 +10,8 @@ class ProductLoader
         $productsArray = [];
 
         try {
-
-            $conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
+            global $servername; global $dbname; global $username; global $password;
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $stmt = $conn->query("SELECT * FROM product");
@@ -37,8 +37,8 @@ class ProductLoader
     {
 
         try {
-
-            $conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
+            global $servername; global $dbname; global $username; global $password;
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $stmt = $conn->query("SELECT * FROM product WHERE id = $id");
