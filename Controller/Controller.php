@@ -37,9 +37,11 @@ class Controller
             $product = $productLoader->getproduct(intval($GET['product']));
             $price = $product->getPrice();
 
-            $totalPrice = (($price - $FixedDiscount) * $VariableDiscount) / 100;
-
-
+            if ($VariableDiscount==0) {
+                $totalPrice = ($price - $FixedDiscount) / 100;
+            }else{
+                $totalPrice = (($price - $FixedDiscount) * $VariableDiscount) / 100;
+            }
         }
 
         require 'View/Overview.php';

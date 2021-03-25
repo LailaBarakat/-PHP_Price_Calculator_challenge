@@ -16,7 +16,7 @@ require_once 'header.php'
     <title>Overview</title>
 </head>
 <body>
-<h1>Welcome to everything</h1>
+<h1>Welcome to our shop</h1>
 <form method="get">
     <div class="container">
         <div class="row justify-content-around" id="menu">
@@ -55,4 +55,6 @@ require_once 'header.php'
 
 </form>
 
+<br>
+<br>
 <?php require 'footer.php' ?>
