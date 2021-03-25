@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+include_once '../View/header.php'
 ?>
 <!doctype html>
 <html lang="en">
@@ -51,6 +52,7 @@ declare(strict_types=1);
             </div>
         </div>
     </div>
+
 </form>
-</body>
-</html>
+
+<?php require 'footer.php' ?>
