@@ -6,5 +6,7 @@ require_once 'Model/GroupLoader.php';
 require_once 'Model/Product.php';
 require_once 'Model/ProductLoader.php';
 require_once 'Controller/Controller.php';
-require_once 'View/Overview.php';
-require_once 'config.php';
+
+
+$controller = new Controller();
+$controller->render($_GET,$_POST);
