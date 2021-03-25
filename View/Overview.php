@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-include_once '../View/header.php'
+require_once 'header.php'
 ?>
 <!doctype html>
 <html lang="en">
