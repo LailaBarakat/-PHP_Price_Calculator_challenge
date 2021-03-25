@@ -24,8 +24,8 @@ require_once 'header.php'
                 <label for="customer"></label>
                 <select name="customer" id="customer" class="btn btn-secondary dropdown-toggle">
                     <option value><i>Select the customers</i></option>
-                    <?php foreach ($datas as $i => $data): ?>
-                        <option value="<?php echo $customer['name']; ?>" <?php echo $i = 0 ? 'selected' : 0; ?>><?php echo $customer['name']; ?></option>
+                    <?php foreach ($customers as $i => $customer): ?>
+                        <option value="<?php echo $customer->getId(); ?>" <?php echo $i = 0 ? 'selected' : 0; ?>><?php echo $customer->getFullName(); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -34,8 +34,8 @@ require_once 'header.php'
                 <label for="product"></label>
                 <select name="product" id="product" class="btn btn-secondary dropdown-toggle">
                     <option value><i>Select the products</i></option>
-                    <?php foreach ($datas as $i => $data): ?>
-                        <option value="<?php echo $product['name']; ?>" <?php echo $i = 0 ? 'selected' : 0; ?>><?php echo $product['name']; ?></option>
+                    <?php foreach ($products as $i => $product): ?>
+                        <option value="<?php echo $product->getId(); ?>" <?php echo $i = 0 ? 'selected' : 0; ?>><?php echo $product->getName(); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -48,7 +48,7 @@ require_once 'header.php'
         </div>
         <div class="row justify-content-center" id="price">
             <div class="col-4">
-                <span>Show the price here!!</span>
+                <span><?php echo $totalPrice; ?></span>
             </div>
         </div>
     </div>
