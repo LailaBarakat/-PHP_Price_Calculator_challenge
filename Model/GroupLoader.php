@@ -27,7 +27,7 @@ class GroupLoader
                 $group = new Group(
                     intval($row['id']),
                     $row['name'],
-                    $row['parent_id'] == null? 0 : intval($row['parent_id']),
+                    intval($row['parent_id']),
                     $row['fixed_discount'] == null? 0 : intval($row['fixed_discount']),
                     $row['variable_discount'] == null? 0 : intval($row['variable_discount']));
                 array_push($groupsArray, $group);
@@ -57,7 +57,7 @@ class GroupLoader
             $group = new Group(
                 intval($result['id']),
                 $result['name'],
-                $result['parent_id'] == null? 0 : intval($result['parent_id']),
+                intval($result['parent_id']),
                 $result['fixed_discount'] == null? 0 : intval($result['fixed_discount']),
                 $result['variable_discount'] == null? 0 : intval($result['variable_discount']));
 

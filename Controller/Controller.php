@@ -45,7 +45,7 @@ class Controller
             $ParentId = $group->getParentID();
 
             //loop till parentId is null
-            while ($ParentId !=null && $ParentId != 0){
+            while ($ParentId !=null){
                 //get the group of the parentId
                 $parentGroup = $groupLoader->getGroup($ParentId);
                 //keep adding the fixed discounts
