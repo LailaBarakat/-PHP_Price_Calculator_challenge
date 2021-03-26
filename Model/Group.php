@@ -9,7 +9,7 @@ class Group {
     private int $variableDiscount;
     Private int $parentID;
 
-    public function __construct(int $id,string $name, int $fixedDiscount, int $variableDiscount, int $parentID)
+    public function __construct(int $id,string $name, int $parentID, int $fixedDiscount, int $variableDiscount)
     {
         $this->id = $id;
         $this->name = $name;
