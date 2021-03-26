@@ -18,13 +18,18 @@ class GroupLoader
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $conn->query("SELECT * FROM customer_group");
+            $stmt = $conn->query("SELECT id,name ,parent_id,fixed_discount, variable_discount FROM customer_group");
             $stmt->execute();
 
             // set the resulting array to associative
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($results as $row) {
-                $group = new group(intval($row['id']), $row['name'], $row['parentId'], $row['fixedDiscount'], $row['variableDiscount']);
+                $group = new Group(
+                    intval($row['id']),
+                    $row['name'],
+                    intval($row['parent_id']),
+                    $row['fixed_discount'] == null? 0 : intval($row['fixed_discount']),
+                    $row['variable_discount'] == null? 0 : intval($row['variable_discount']));
                 array_push($groupsArray, $group);
             }
         } catch (PDOException $e) {
@@ -37,7 +42,7 @@ class GroupLoader
 
     }
 
-    public function getGroups (int $id): Group
+    public function getGroup (int $id): Group
     {
 
         try {
@@ -47,9 +52,14 @@ class GroupLoader
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $conn->query("SELECT * FROM customer_group WHERE id = $id");
+            $stmt = $conn->query("SELECT id,name ,parent_id,fixed_discount, variable_discount FROM customer_group WHERE id = $id");
             $result = $stmt->fetch();
-            $group = new group(intval($result['id']), $result['name'], $result['parentId'], $result['fixedDiscount'], $result['variableDiscount']);
+            $group = new Group(
+                intval($result['id']),
+                $result['name'],
+                intval($result['parent_id']),
+                $result['fixed_discount'] == null? 0 : intval($result['fixed_discount']),
+                $result['variable_discount'] == null? 0 : intval($result['variable_discount']));
 
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();

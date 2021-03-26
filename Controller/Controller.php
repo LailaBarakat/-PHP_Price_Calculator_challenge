@@ -31,17 +31,56 @@ class Controller
         $totalPrice = 0;
         if (isset($GET['customer']) && isset($GET['product'])){
             $customer = $customerLoader->getCustomer(intval($GET['customer']));
-            $FixedDiscount = $customer->getFixedDiscount();
-            $VariableDiscount = $customer->getVariableDiscount() / 100;
+            $customerFixedDiscount = $customer->getFixedDiscount();
+            $customerVariableDiscount = $customer->getVariableDiscount() / 100;
+            $customerGroupId = $customer->getGroupId();
 
             $product = $productLoader->getproduct(intval($GET['product']));
             $price = $product->getPrice();
 
-            if ($VariableDiscount==0) {
-                $totalPrice = ($price - $FixedDiscount) / 100;
-            }else{
-                $totalPrice = (($price - $FixedDiscount) * $VariableDiscount) / 100;
+            $group = $groupLoader->getGroup($customerGroupId);
+            $groupFixedDiscount = $group->getFixedDiscount();
+            $groupVariableDiscount = $group->getVariableDiscount();
+
+            $ParentId = $group->getParentID();
+
+            //loop till parentId is null
+            while ($ParentId !=null){
+                //get the group of the parentId
+                $parentGroup = $groupLoader->getGroup($ParentId);
+                //keep adding the fixed discounts
+                $groupFixedDiscount += $parentGroup->getFixedDiscount();
+                //get the highest variable discount and overwrite it in the $groupVariableDiscount
+                if ($groupVariableDiscount < $parentGroup->getVariableDiscount()){
+                    $groupVariableDiscount = $parentGroup->getVariableDiscount();
+                }
+                //set the parentId to the parent of the parent
+                $ParentId = $parentGroup->getParentID();
             }
+
+            //compare the total fixed VS highest variable discount of the groups
+            if (($groupVariableDiscount * $price) > ($price - $groupFixedDiscount)){
+                //$groupPrice = $price - $groupFixedDiscount;
+                if ($customerVariableDiscount == 0)
+                    $customerVariableDiscount = 1;
+
+                $totalPrice = (($price - ($groupFixedDiscount+$customerFixedDiscount)) * $customerVariableDiscount) / 100;
+
+            }else {
+                //$groupPrice = $groupVariableDiscount * $price;
+                if ($groupVariableDiscount > $customerVariableDiscount){
+                    if ($groupVariableDiscount == 0)
+                        $groupVariableDiscount = 1;
+
+                    $totalPrice = (($price - $customerFixedDiscount) * $groupVariableDiscount) / 100;
+                }else {
+                    if($customerVariableDiscount == 0)
+                        $customerVariableDiscount = 1;
+
+                    $totalPrice = (($price - $customerFixedDiscount) * $customerVariableDiscount) / 100;
+                }
+            }
+
         }
 
         require 'View/Overview.php';
