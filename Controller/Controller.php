@@ -36,11 +36,11 @@ class Controller
             $customerGroupId = $customer->getGroupId();
 
             $product = $productLoader->getproduct(intval($GET['product']));
-            $price = $product->getPrice();
+            $price = $product->getPrice() /100;
 
             $group = $groupLoader->getGroup($customerGroupId);
             $groupFixedDiscount = $group->getFixedDiscount();
-            $groupVariableDiscount = $group->getVariableDiscount();
+            $groupVariableDiscount = $group->getVariableDiscount() /100;
 
             $ParentId = $group->getParentID();
 
@@ -51,34 +51,34 @@ class Controller
                 //keep adding the fixed discounts
                 $groupFixedDiscount += $parentGroup->getFixedDiscount();
                 //get the highest variable discount and overwrite it in the $groupVariableDiscount
-                if ($groupVariableDiscount < $parentGroup->getVariableDiscount()){
-                    $groupVariableDiscount = $parentGroup->getVariableDiscount();
+                if ($groupVariableDiscount < $parentGroup->getVariableDiscount() /100){
+                    $groupVariableDiscount = $parentGroup->getVariableDiscount() /100;
                 }
                 //set the parentId to the parent of the parent
                 $ParentId = $parentGroup->getParentID();
             }
 
             //compare the total fixed VS highest variable discount of the groups
-            if (($groupVariableDiscount * $price) > ($price - $groupFixedDiscount)){
+            if (($groupVariableDiscount * $price) > ($groupFixedDiscount)){
                 //$groupPrice = $price - $groupFixedDiscount;
-                if ($customerVariableDiscount == 0)
-                    $customerVariableDiscount = 1;
 
-                $totalPrice = (($price - ($groupFixedDiscount+$customerFixedDiscount)) * $customerVariableDiscount) / 100;
-
-            }else {
-                //$groupPrice = $groupVariableDiscount * $price;
-                if ($groupVariableDiscount > $customerVariableDiscount){
+                if ($groupVariableDiscount > $customerVariableDiscount) {
                     if ($groupVariableDiscount == 0)
                         $groupVariableDiscount = 1;
 
-                    $totalPrice = (($price - $customerFixedDiscount) * $groupVariableDiscount) / 100;
+                    $totalPrice = (($price - (($price * $groupVariableDiscount) + $customerFixedDiscount)) / 100);
                 }else {
-                    if($customerVariableDiscount == 0)
+                    if ($customerVariableDiscount == 0)
                         $customerVariableDiscount = 1;
-
-                    $totalPrice = (($price - $customerFixedDiscount) * $customerVariableDiscount) / 100;
+                    $totalPrice = (($price - (($price * $customerVariableDiscount) + $customerFixedDiscount)) / 100);
                 }
+            }else {
+                //$groupPrice = $groupVariableDiscount * $price;
+                if ($customerVariableDiscount == 0)
+                    $customerVariableDiscount = 1;
+
+                $totalPrice = ($price - ($customerFixedDiscount + $groupFixedDiscount));
+                $totalPrice = $totalPrice - ($totalPrice * $customerVariableDiscount);
             }
 
         }
