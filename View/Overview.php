@@ -1,26 +1,10 @@
-<?php
-declare(strict_types=1);
+<?php include_once 'header.php' ?>
 
-require_once 'header.php'
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="CSS/style.css?v=<?php echo time(); ?>">
-    <title>Overview</title>
-</head>
-<body>
-<h1>Welcome to our shop</h1>
+<h1>Check the price here</h1>
 <form method="get">
-    <div class="container">
+    <div class="">
         <div class="row justify-content-around" id="menu">
-            <div class="col-4">
+            <div class="col-2">
                 <label for="customer"></label>
                 <select name="customer" id="customer" class="btn btn-secondary dropdown-toggle">
                     <option value><i>Select the customers</i></option>
@@ -30,7 +14,7 @@ require_once 'header.php'
                 </select>
             </div>
 
-            <div class="col-4">
+            <div class="col-2">
                 <label for="product"></label>
                 <select name="product" id="product" class="btn btn-secondary dropdown-toggle">
                     <option value><i>Select the products</i></option>
@@ -42,12 +26,12 @@ require_once 'header.php'
         </div>
 
         <div class="row justify-content-center" id="calculate">
-            <div class="col-4">
+            <div class="col-2">
                 <button type="submit" name="calculate" class="btn btn-primary">Check the price</button>
             </div>
         </div>
         <div class="row justify-content-center" id="price">
-            <div class="col-4">
+            <div class="col-2">
                 <span><?php echo $totalPrice; ?></span>
             </div>
         </div>
@@ -57,4 +41,4 @@ require_once 'header.php'
 
 <br>
 <br>
-<?php require 'footer.php' ?>
+<?php include_once 'footer.php' ?>

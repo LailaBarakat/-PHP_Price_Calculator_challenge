@@ -81,6 +81,10 @@ class Controller
                 $totalPrice = $totalPrice - ($totalPrice * $customerVariableDiscount);
             }
 
+            If ($totalPrice <= 0) {
+                $totalPrice = 0 ;
+            }
+
         }
 
         require 'View/Overview.php';
